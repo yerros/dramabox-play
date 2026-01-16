@@ -40,7 +40,7 @@ export default async function Home() {
         {/* Hero Section - Featured Video */}
         {featuredVideo && (
           <section className="mb-8 mt-6">
-            <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-gradient-to-br from-primary/20 via-primary/10 to-background">
+            <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-linear-to-br from-primary/20 via-primary/10 to-background">
               {featuredVideo.thumbnail && (
                 <Image
                   src={featuredVideo.thumbnail}
@@ -84,7 +84,7 @@ export default async function Home() {
                 </div>
               </div>
               {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-background/90 via-background/50 to-transparent" />
             </div>
           </section>
         )}

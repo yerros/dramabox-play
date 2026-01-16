@@ -15,9 +15,11 @@ import type {
 export class DramaBoxService {
   // Get VIP dramas
   static async getVip(params?: { page?: number }): Promise<DramaBoxVipApiResponse> {
-    return apiClient.get<DramaBoxVipApiResponse>(API_ENDPOINTS.vip, {
-      page: params?.page,
-    })
+    const queryParams: Record<string, string | number> = {}
+    if (params?.page !== undefined) {
+      queryParams.page = params.page
+    }
+    return apiClient.get<DramaBoxVipApiResponse>(API_ENDPOINTS.vip, queryParams)
   }
 
   // Get Indonesian dubbed dramas
@@ -25,10 +27,14 @@ export class DramaBoxService {
     classify?: string
     page?: number
   }): Promise<DramaBoxApiResponse[]> {
-    return apiClient.get<DramaBoxApiResponse[]>(API_ENDPOINTS.dubindo, {
-      classify: params?.classify,
-      page: params?.page,
-    })
+    const queryParams: Record<string, string | number> = {}
+    if (params?.classify !== undefined) {
+      queryParams.classify = params.classify
+    }
+    if (params?.page !== undefined) {
+      queryParams.page = params.page
+    }
+    return apiClient.get<DramaBoxApiResponse[]>(API_ENDPOINTS.dubindo, queryParams)
   }
 
   // Get random drama
@@ -43,9 +49,16 @@ export class DramaBoxService {
 
   // Get latest dramas
   static async getLatest(params?: { page?: number; limit?: number }): Promise<Drama[] | PaginatedResponse<Drama>> {
+    const queryParams: Record<string, string | number> = {}
+    if (params?.page !== undefined) {
+      queryParams.page = params.page
+    }
+    if (params?.limit !== undefined) {
+      queryParams.limit = params.limit
+    }
     return apiClient.get<Drama[] | PaginatedResponse<Drama>>(
       API_ENDPOINTS.latest,
-      params
+      queryParams
     )
   }
 
@@ -61,13 +74,18 @@ export class DramaBoxService {
 
   // Search dramas
   static async search(params: SearchParams): Promise<Drama[] | PaginatedResponse<Drama>> {
+    const queryParams: Record<string, string | number> = {
+      query: params.query,
+    }
+    if (params.page !== undefined) {
+      queryParams.page = params.page
+    }
+    if (params.limit !== undefined) {
+      queryParams.limit = params.limit
+    }
     return apiClient.get<Drama[] | PaginatedResponse<Drama>>(
       API_ENDPOINTS.search,
-      {
-        query: params.query,
-        page: params.page,
-        limit: params.limit,
-      }
+      queryParams
     )
   }
 

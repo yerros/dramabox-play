@@ -37,9 +37,16 @@ export async function getLatestDramas(
   limit?: number
 ): Promise<Drama[]> {
   try {
+    const queryParams: Record<string, string | number> = {}
+    if (page !== undefined) {
+      queryParams.page = page
+    }
+    if (limit !== undefined) {
+      queryParams.limit = limit
+    }
     const data = await apiClient.get<DramaBoxApiResponse[]>(
       API_ENDPOINTS.latest,
-      { page, limit }
+      queryParams
     )
     return mapDramaBoxArrayToDrama(data)
   } catch (error) {
@@ -133,13 +140,18 @@ export async function searchDramas(
   params: SearchParams
 ): Promise<Drama[]> {
   try {
+    const queryParams: Record<string, string | number> = {
+      query: params.query,
+    }
+    if (params.page !== undefined) {
+      queryParams.page = params.page
+    }
+    if (params.limit !== undefined) {
+      queryParams.limit = params.limit
+    }
     const data = await apiClient.get<DramaBoxApiResponse[]>(
       API_ENDPOINTS.search,
-      {
-        query: params.query,
-        page: params.page,
-        limit: params.limit,
-      }
+      queryParams
     )
     return mapDramaBoxArrayToDrama(data)
   } catch (error) {
@@ -178,12 +190,16 @@ export async function getDubindoDramas(params?: {
   page?: number
 }): Promise<Drama[]> {
   try {
+    const queryParams: Record<string, string | number> = {}
+    if (params?.classify !== undefined) {
+      queryParams.classify = params.classify
+    }
+    if (params?.page !== undefined) {
+      queryParams.page = params.page
+    }
     const data = await apiClient.get<DramaBoxApiResponse[]>(
       API_ENDPOINTS.dubindo,
-      {
-        classify: params?.classify,
-        page: params?.page,
-      }
+      queryParams
     )
     return mapDramaBoxArrayToDrama(data)
   } catch (error) {

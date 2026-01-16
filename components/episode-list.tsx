@@ -4,15 +4,7 @@ import { Play, Clock, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
-
-interface Episode {
-  id: string
-  number: number
-  title: string
-  duration: string
-  thumbnail?: string
-  isWatched?: boolean
-}
+import type { Episode } from "@/lib/types/api"
 
 interface EpisodeListProps {
   episodes: Episode[]

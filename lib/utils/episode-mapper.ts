@@ -33,6 +33,17 @@ export function mapDramaBoxEpisodeToEpisode(
     ? apiEpisode.chapterIndex + 1 
     : parseInt(apiEpisode.chapterName?.replace(/\D/g, "") || String(index + 1), 10) || index + 1
 
+  // Determine isCharge value - convert to boolean
+  const isChargeValue: boolean | undefined = 
+    apiEpisode.isCharge === 1 || apiEpisode.chargeChapter === true
+      ? true
+      : apiEpisode.isCharge === 0 || apiEpisode.chargeChapter === false
+      ? false
+      : undefined
+
+  // Create base object without isCharge from spread
+  const { isCharge: _, chargeChapter: __, ...restApiEpisode } = apiEpisode
+
   return {
     id: apiEpisode.chapterId,
     number: episodeNumber,
@@ -40,9 +51,9 @@ export function mapDramaBoxEpisodeToEpisode(
     thumbnail: apiEpisode.chapterImg,
     videoUrl: defaultVideo?.url,
     videoUrls: videoUrls.length > 0 ? videoUrls : undefined,
-    isCharge: apiEpisode.isCharge === 1 || apiEpisode.chargeChapter === true,
-    // Keep original data for reference
-    ...apiEpisode,
+    isCharge: isChargeValue,
+    // Keep original data for reference (excluding isCharge and chargeChapter to avoid type conflicts)
+    ...restApiEpisode,
   }
 }
 

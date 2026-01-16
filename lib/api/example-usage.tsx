@@ -91,6 +91,7 @@ export async function ErrorHandlingExample() {
 // 5. Search dengan Pagination
 // ============================================
 import { searchDramas } from "@/lib/api/server"
+import type { PaginatedResponse, Drama } from "@/lib/types/api"
 
 export async function SearchExample() {
   const results = await searchDramas({
@@ -105,10 +106,11 @@ export async function SearchExample() {
     return results.map((drama) => drama.title)
   } else {
     // Paginated response
+    const paginatedResults = results as PaginatedResponse<Drama>
     return {
-      dramas: results.data,
-      total: results.total,
-      hasMore: results.hasMore,
+      dramas: paginatedResults.data,
+      total: paginatedResults.total,
+      hasMore: paginatedResults.hasMore,
     }
   }
 }

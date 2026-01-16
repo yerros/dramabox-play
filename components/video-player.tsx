@@ -34,7 +34,7 @@ export function VideoPlayer({
 
     if (!mounted || !src) {
         return (
-            <div className="aspect-[2/3] w-full max-w-md mx-auto bg-black flex items-center justify-center rounded-lg">
+            <div className="aspect-2/3 w-full max-w-md mx-auto bg-black flex items-center justify-center rounded-lg">
                 <p className="text-white">Loading player...</p>
             </div>
         )
@@ -55,7 +55,7 @@ export function VideoPlayer({
     const videoSrc = getBestVideoUrl()
 
     return (
-        <div className="w-full aspect-[2/3] max-w-md mx-auto bg-black rounded-lg overflow-hidden">
+        <div className="w-full aspect-2/3 max-w-md mx-auto bg-black rounded-lg overflow-hidden">
             <MediaPlayer
                 title={title}
                 src={videoSrc}
